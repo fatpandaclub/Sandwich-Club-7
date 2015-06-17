@@ -1,0 +1,126 @@
+#pragma strict
+
+//var characters : Character[];
+
+var speed : float = 0.1;
+var count : int = 0;
+
+var wp : Vector3;
+var touchPos : Vector2;
+
+
+var curScreenPoint : Vector3;
+var curPosition : Vector3;
+var screenPoint : Vector3;
+var offset : Vector3;
+
+var pos : Vector3;
+
+
+function Start () {
+
+}
+
+function Update () {
+
+    ControlTouch();
+    //ControlsMouse();
+
+    /*if(Input.GetMouseButtonUp(0)) {
+        
+        pos = this.transform.position;
+        
+        pos.x = pos.x * 0.9;
+        pos.y = pos.y * 0.9;
+        this.transform.position = pos;
+    }*/
+
+}
+
+function ControlTouch() {
+
+    if(Input.GetTouch(0).phase == TouchPhase.Moved) {
+
+        //wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+        //touchPos = new Vector2(wp.x, wp.y);
+
+        if (GetComponent.<Collider2D>() == Physics2D.OverlapPoint(touchPos)) {
+
+            var touchDeltaPosition : Vector3 = Input.GetTouch(0).deltaPosition;
+
+            offset = this.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(touchDeltaPosition.x, touchDeltaPosition.y, screenPoint.z));
+
+            curScreenPoint = new Vector3(touchDeltaPosition.x, touchDeltaPosition.y, screenPoint.z);
+            curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint);
+            transform.position = curPosition;
+
+            // Get movement of the finger since last frame
+            
+            
+            // Move object across XY plane
+            //this.transform.Translate(touchDeltaPosition.x * speed, touchDeltaPosition.y * speed, 0);
+            /*
+            easingX = (this.transform.position.x - touchDeltaPosition.x) / speed; //easing
+            easingY = (this.transform.position.y - touchDeltaPosition.y) / speed; //easing
+
+            this.transform.Translate(easingX, easingY, 0);
+            */
+        }
+
+    } /*else if(Input.GetTouch(0).phase == TouchPhase.Ended) {
+
+        pos = transform.position;
+        pos.x += 1;
+        pos.y += 1;
+
+        transform.position = pos;
+    }*/
+    
+}
+/*
+function ControlsMouse() {
+
+    if (Input.GetMouseButtonDown(0)) {
+
+        mousePos = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(mousePos, hit)) {
+
+            Debug.Log("hit" + count++);
+
+            //easingX = (this.transform.position.x - touchDeltaPosition.x) / speed; //easing
+            //easingY = (this.transform.position.y - touchDeltaPosition.y) / speed; //easing
+
+            //this.transform.Translate(easingX, easingY, 0);
+        }  
+        
+    }
+}
+
+
+function OnMouseDown() {
+
+    offset = this.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+}
+
+function OnMouseDrag() {
+    curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+    curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+    transform.position = curPosition;
+}
+*/
+
+/*
+if (_touchingDown) {
+        const CGFloat speed = 0.5;
+        CGFloat easingX = (self.mainCharacter.position.x - self.walkTarget.position.x) / speed; //easing
+        CGFloat easingY = (self.mainCharacter.position.y - self.walkTarget.position.y) / speed;     //easing
+        
+        self.mainCharacter.physicsBody.velocity = CGVectorMake(-easingX, -easingY);
+    } else {
+        CGVector velocity = self.mainCharacter.physicsBody.velocity;
+        velocity.dx = velocity.dx * 0.9;
+        velocity.dy = velocity.dy * 0.9;
+        self.mainCharacter.physicsBody.velocity = velocity;
+    }
+*/
